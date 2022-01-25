@@ -1,0 +1,27 @@
+if TARGET_IMX8QM_IWG27M_UUU
+
+config SYS_BOARD
+        default "imx8qm_iwg27m"
+
+config SYS_VENDOR
+        default "freescale"
+
+config SYS_CONFIG_NAME
+        default "imx8qm_iwg27m_uuu"
+
+endif
+
+if TARGET_IMX8QM_IWG27M
+
+config SYS_BOARD
+	default "imx8qm_iwg27m"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8qm_iwg27m"
+
+source "board/freescale/common/Kconfig"
+
+endif
