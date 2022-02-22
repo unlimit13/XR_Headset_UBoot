@@ -231,20 +231,29 @@ int find_device_by_ofnode(ofnode node, struct udevice **pdev)
 		return -2;
 
 	ret = uclass_find_device_by_ofnode(UCLASS_DISPLAY, node, pdev);
-	if (!ret)
+	if (!ret){
+		printf("1 \n");
 		return 0;
+	}
+		
 
 	ret = uclass_find_device_by_ofnode(UCLASS_DSI_HOST, node, pdev);
-	if (!ret)
+	if (!ret){
+		printf("2 \n");
 		return 0;
+	}
 
 	ret = uclass_find_device_by_ofnode(UCLASS_VIDEO_BRIDGE, node, pdev);
-	if (!ret)
+	if (!ret){
+		printf("3 \n");
 		return 0;
+	}
 
 	ret = uclass_find_device_by_ofnode(UCLASS_PANEL, node, pdev);
-	if (!ret)
+	if (!ret){
+		printf("4 \n");
 		return 0;
+	}
 
 	return -1;
 }
@@ -286,17 +295,24 @@ static void video_link_add_node(struct udevice *peer_dev, struct udevice *dev, o
 	struct udevice *remote_dev;
 	bool find = false;
 
+	
+
 	debug("endpoint cnt %d\n", ofnode_graph_get_endpoint_count(dev_node));
+
+	
 
 	video_link_stack_push(dev);
 
 	for_each_endpoint_of_node(dev_node, endpoint_node) {
 		remote = ofnode_graph_get_remote_port_parent(endpoint_node);
+		
 		if (!ofnode_valid(remote))
 			continue;
 
 		debug("remote %s\n", ofnode_get_name(remote));
+		
 		ret = find_device_by_ofnode(remote, &remote_dev);
+		printf("ret = %d\n", ret);
 		if (!ret) {
 			debug("remote dev %s\n", remote_dev->name);
 

@@ -143,8 +143,11 @@ int uclass_get(enum uclass_id id, struct uclass **ucp)
 
 	*ucp = NULL;
 	uc = uclass_find(id);
-	if (!uc)
+	if (!uc){
+		printf("uclass_get_debug\n");
 		return uclass_add(id, ucp);
+	}
+		
 	*ucp = uc;
 
 	return 0;
@@ -359,6 +362,7 @@ int uclass_find_device_by_ofnode(enum uclass_id id, ofnode node,
 	if (!ofnode_valid(node))
 		return -ENODEV;
 	ret = uclass_get(id, &uc);
+	printf("[uclass.c]ret : %d\n", ret);
 	if (ret)
 		return ret;
 
